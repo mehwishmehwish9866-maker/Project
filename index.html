@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Destinations | Adventure Awaits</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        /* --- CSS Reset & Base Styles --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 25px 8%;
+            z-index: 100;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            margin-left: 30px;
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .contact-btn {
+            background: #4ade80;
+            padding: 10px 20px;
+            border-radius: 20px;
+            color: white;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), 
+                        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: pink;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 3.5rem;
+            letter-spacing: 5px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        /* Search Boxes */
+        .search-container {
+            display: flex;
+            gap: 15px;
+        }
+
+        .search-box {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            padding: 15px 25px;
+            border-radius: 4px;
+            width: 250px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search-box input {
+            background: transparent;
+            border: none;
+            color: white;
+            outline: none;
+            width: 80%;
+        }
+
+        .search-box input::placeholder {
+            color: #ddd;
+        }
+
+        /* --- Destination Cards --- */
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            width: 100%;
+            height: 400px;
+        }
+
+        .dest-card {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            color: white;
+        }
+
+        .dest-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .dest-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .price-tag {
+            border: 1px solid white;
+            width: fit-content;
+            padding: 5px 10px;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .dest-card h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+        }
+
+        /* --- About Section --- */
+        .about-section {
+            padding: 80px 10%;
+            background: #2cb67d;
+            color: white;
+        }
+
+        .about-content {
+            max-width: 700px;
+            margin-bottom: 50px;
+        }
+
+        .about-section h2 {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .about-section p {
+            font-size: 1.8rem;
+            line-height: 1.4;
+        }
+
+        /* --- Video Section --- */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .video-box {
+            background: #eee;
+            height: 200px;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .video-box iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-title {
+            margin-top: 10px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .destinations-grid, .video-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 { font-size: 2rem; }
+            .search-container { flex-direction: column; }
+        }
+        
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#locations">Locations</a>
+        <a href="#about">About Us</a>
+        <a href="#fleet">Our Fleet</a>
+        <a href="#contact" class="contact-btn">Contact</a>
+    </nav>
+
+    <header class="hero" id="home">
+        <h1>Travel Destinations</h1>
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" placeholder="WHEN?">
+                <span>📅</span>
+            </div>
+            <div class="search-box">
+                <input type="text" placeholder="WHERE?">
+                <span>🔍</span>
+            </div>
+        </div>
+    </header>
+
+    <section class="destinations-grid" id="locations">
+        <div class="dest-card">
+            <div class="card-overlay">
+                <div class="price-tag">UP TO $399k</div>
+                <p>CHARTER A YACHT IN</p>
+                <h3>Andalusia</h3>
+            </div>
+        </div>
+        <div class="dest-card">
+            <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=500&q=60" alt="St Tropez">
+            <div class="card-overlay">
+                <div class="price-tag">UP TO $420k</div>
+                <p>CHARTER A YACHT IN</p>
+                <h3>St Tropez</h3>
+            </div>
+        </div>
+        <div class="dest-card">
+            <img src="https://images.unsplash.com/photo-1534351590666-13e3e96b5017?auto=format&fit=crop&w=500&q=60" alt="Mallorca">
+            <div class="card-overlay">
+                <div class="price-tag">UP TO $314k</div>
+                <p>CHARTER A YACHT IN</p>
+                <h3>Mallorca</h3>
+            </div>
+        </div>
+        <div class="dest-card">
+            <img src="https://images.unsplash.com/photo-1525874684015-58379d421a52?auto=format&fit=crop&w=500&q=60" alt="Sicilia">
+            <div class="card-overlay">
+                <div class="price-tag">UP TO $349k</div>
+                <p>CHARTER A YACHT IN</p>
+                <h3>Sicilia</h3>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section" id="about">
+        <div class="about-content">
+            <h2>About Us</h2>
+            <p>Exploring the world’s most beautiful coastal gems. We provide luxury fleet services to make your dream destination a reality.</p>
+        </div>
+
+        <div class="video-grid">
+            <div>
+                <div class="video-box">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"></iframe>
+                </div>
+                <div class="video-title">Tropical Islands</div>
+            </div>
+            <div>
+                <div class="video-box">
+                    <iframe src="https://www.youtube.com/embed/ScMzIvxBSi4"></iframe>
+                </div>
+                <div class="video-title">European Summer</div>
+            </div>
+            <div>
+                <div class="video-box">
+                    <iframe src="https://www.youtube.com/embed/z9Ul9ccDOqE"></iframe>
+                </div>
+                <div class="video-title">Luxury Getaways</div>
+            </div>
+        </div>
+    </section>
+    </body>
+    </html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marine Experience</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f4f6f8;
+    color:#333;
+}
+
+/* HERO SECTION */
+.hero{
+    height:60vh;
+    background:linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),
+    url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e") center/cover;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:#fff;
+}
+
+.hero h1{
+    font-size:42px;
+    margin-bottom:15px;
+}
+
+.hero p{
+    max-width:600px;
+    margin:auto;
+    line-height:1.6;
+}
+
+/* SECTION */
+.section{
+    padding:60px 8%;
+    background:#fff;
+}
+
+/* GRID */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:30px;
+}
+
+/* CARD */
+.card{
+    background:#0d6efd;
+    color:#fff;
+    border-radius:8px;
+    overflow:hidden;
+}
+
+.card img{
+    width:100%;
+    height:200px;
+    object-fit:cover;
+}
+
+.card-content{
+    padding:20px;
+}
+
+.card-content h3{
+    margin-bottom:10px;
+}
+
+.card-content p{
+    font-size:14px;
+    line-height:1.6;
+}
+
+/* FULL IMAGE SECTION */
+.full-image{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0;
+}
+
+.full-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.text-box{
+    background:#0b5ed7;
+    color:#fff;
+    padding:60px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.text-box h2{
+    margin-bottom:15px;
+}
+
+/* FOOTER */
+footer{
+    background:#0a2540;
+    color:#fff;
+    padding:40px 8%;
+}
+
+.footer-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:30px;
+}
+
+footer h4{
+    margin-bottom:15px;
+}
+
+footer p, footer li{
+    font-size:14px;
+    line-height:1.7;
+    list-style:none;
+}
+
+.footer-bottom{
+    text-align:center;
+    margin-top:30px;
+    font-size:13px;
+    opacity:0.8;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+    .full-image{
+        grid-template-columns:1fr;
+    }
+    .hero h1{
+        font-size:32px;
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+    <div>
+        <h1>Explore the Ocean Experience</h1>
+        <p>
+            Discover luxury marine adventures, peaceful sailing routes,
+            and unforgettable journeys across open waters.
+        </p>
+    </div>
+</section>
+
+<!-- CARDS SECTION -->
+<section class="section">
+    <div class="grid">
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1">
+            <div class="card-content">
+                <h3>Luxury Yachts</h3>
+                <p>Premium yacht experiences designed for comfort, style, and relaxation.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee">
+            <div class="card-content">
+                <h3>Ocean Views</h3>
+                <p>Enjoy breathtaking sea views and calm waters with every journey.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b">
+            <div class="card-content">
+                <h3>Sailing Routes</h3>
+                <p>Carefully planned routes offering both adventure and peace.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- IMAGE + TEXT SECTION -->
+<section class="full-image">
+    <img src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21">
+    <div class="text-box">
+        <h2>Designed for Comfort</h2>
+        <p>
+            Our marine experiences are crafted to give you luxury,
+            safety, and unforgettable moments on the sea.
+        </p>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-grid">
+        <div>
+            <h4>About Us</h4>
+            <p>
+                We provide premium ocean experiences with a focus on comfort,
+                safety, and world-class service.
+            </p>
+        </div>
+
+        <div>
+            <h4>Quick Links</h4>
+            <ul>
+                <li>Home</li>
+                <li>Services</li>
+                <li>Gallery</li>
+                <li>Contact</li>
+            </ul>
+        </div>
+
+        <div>
+            <h4>Contact</h4>
+            <p>Email: info@marineexperience.com</p>
+            <p>Phone: +91 98765 43210</p>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        © 2026 Marine Experience. All Rights Reserved.
+    </div>
+</footer>
+
+</body>
+</html>
+
+
+
